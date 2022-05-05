@@ -22,10 +22,18 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="{% url 'cart_detail' %}">
+						
+							{% if request.user.is_staff %}
+       						 <a href="/add-product"><i class="fa-duotone fa-plus"></i></a>
+       						 {% endif %}
+       					 	{% if request.user.is_authenticated %}
+							<a href="{% url 'cart_detail' %}">
 							<i class="fa-solid fa-cart-shopping"></i>
+							<div><a href="/account/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></div>
 						</a>
-						<h1><a href="index.html">Solid State</a></h1>
+							{% endif %}
+						<h1><a href="index.html"></a></h1>
+						
 						<nav style="display:flex">
 							<form class="d-flex" action="{% url 'search' %}">
 								<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="Что ищете?" aria-label="Search">

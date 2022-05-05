@@ -38,12 +38,17 @@
 						<a href="{% url 'products_list' %}?price=sort">
 						  <button class="btn btn-outline-primary">Low</button>
 						</a>
-						</div>
 						<ul style="margin-top: 10px;">
 						  <li {% if not category %}class="selected"{% endif %}>
 							<a href="{% url 'products_list' %}">All</a>
 						  </li>
-					<article >
+							{% for cat in categories %}
+								<li {% if category.slug == cat.slug %}class="selected"{% endif %}>
+								<a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+								</li>
+							{% endfor %}
+							</div>
+					<center><article>
 						{% for product in products %}
 						<div>
 						<a href="#" class="image"><img src="{{product.image.url}}" alt="" /></a>
@@ -54,7 +59,7 @@
 						</div>
 						{% endfor %}
 					</article>
-					
+				</center>
 				</section>
 
 			</div>
