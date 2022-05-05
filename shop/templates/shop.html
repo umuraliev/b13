@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+
 <section id="wrapper">
 	<header>
 		<div class="inner">
@@ -23,20 +24,34 @@
 				<p>Советы от Men's Club 13:<br></br>
                     Косметика для волос в первую очередь различается по степени блеска и уровню фиксации.<br></br>
                     Грамотная консультация наших барберов поможет определиться с выбором средства, которое подойдет именно вашему типу волос.</p>
-
+					
 				<h3 class="major">Каталог Товаров</h3>
 				<p>Men's Club 13 – не просто сервис, признанный во всем мире.<br></br>
                     О наличии и стоимости товаров уточняйте в ближайшем филиале сети барбершопов Men's Club 13.</p>
 
 				<section class="features">
-					<article>
+					<div id="sidebar">
+						<div style="margin-left: -80px">
+						<a href="{% url 'products_list' %}?-price=sort">
+						  <button class="btn btn-outline-primary">Expensive</button>
+						</a>
+						<a href="{% url 'products_list' %}?price=sort">
+						  <button class="btn btn-outline-primary">Low</button>
+						</a>
+						</div>
+						<ul style="margin-top: 10px;">
+						  <li {% if not category %}class="selected"{% endif %}>
+							<a href="{% url 'products_list' %}">All</a>
+						  </li>
+					<article >
 						{% for product in products %}
+						<div>
 						<a href="#" class="image"><img src="{{product.image.url}}" alt="" /></a>
 						<h3 class="major">{{product.name}}</h3>
 						<h3 class="major">{{product.price}} $</h3>
-						<p>{{product.description}}</p>
+						<p> {{product.description}}</p>
 						<a href="#" class="special" style="margin-bottom: 70px">Купить</a>
-
+						</div>
 						{% endfor %}
 					</article>
 					
@@ -47,3 +62,5 @@
 
 </section>
 {%endblock%}
+
+
