@@ -30,14 +30,14 @@
 
 				<section class="features">
 					<article>
-						<a href="#" class="image"><img src="{% static 'images/cosmetic1.jpeg' %}" alt="" /></a>
-						<h3 class="major">LOCK STOCK and BARREL FREESTYL (100 мл.)</h3>
-						<p>Lock Stock & Barrel Freestyl — Гель-конструктор для стильных укладок.
-                            Рекомендуется для всех типов волос, для творческого беспорядка на коротких волосах, для создания идеальной укладки по форме головы, для «зализанных» укладок, для стрижки «андеркат» (снизу и с боков волосы сбриты, а сверху длина), для идеального создания прически узел или хвост, для профессиональных танцоров, идеально зализанные и зафиксированные волосы. Единственный в мире гель без эффекта мокрых волос, не блестит, дает эффект матовости. Легко счесывается расческой, не оставляет на волосах никаких следов.
-                            Выдавите небольшое количество геля на руку и распределите на сухие волосы руками или расческой, придавая желаемую форму.</p>
+						{% for product in products %}
+						<a href="#" class="image"><img src="{{product.image.url}}" alt="" /></a>
+						<h3 class="major">{{product.name}}</h3>
+						<p>{{product.description}}</p>
 						<a href="#" class="special">Купить</a>
+						{% endfor %}
 					</article>
-					<article>
+					{% comment %} <article>
 						<a href="#" class="image"><img src="{% static 'images/cosmetic2.jpg' %}" alt="" /></a>
 						<h3 class="major">LOCK STOCK & BARREL DISORDER ULTRA MATTE CLAY (100 гр.)</h3>
 						<p>Lock Stock & Barrel Disorder Ultra Matte Clay — Ультра- матовая глина для скульптурирования.
@@ -54,7 +54,7 @@
                             Без усилий смывается водой.
                             Обладает приятным фруктовым ароматом с нотками ананаса.</p>
 						<a href="#" class="special">Купить</a>
-					</article>
+					</article> {% endcomment %}
 				</section>
 
 			</div>

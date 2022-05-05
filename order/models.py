@@ -1,6 +1,6 @@
 from django.db import models
 from account.models import User
-from service.models import Category
+
 
 class Order(models.Model):
     user = models.ForeignKey(User)
@@ -8,8 +8,6 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class Entries(models.Model):
-    user = models.ForeignKey(User)
-    category = models.ForeignKey(Category)
+
 
 
