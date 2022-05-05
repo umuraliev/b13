@@ -136,7 +136,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-PAGINATOR_NUM=2
+PAGINATOR_NUM=1
 CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL = 'account.MyUser'
 
