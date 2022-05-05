@@ -23,7 +23,7 @@ def search_product(request):
     }
     return render(
                   request,
-                  'product/product_list.html',
+                  'shop.html',
                   context
     )
 
@@ -58,7 +58,7 @@ def get_product_list(request, category_slug=None):
     }
     return render(
         request,
-        'product/product_list.html',
+        'shop.html',
         context=context
     )
 
