@@ -136,9 +136,6 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-<<<<<<< HEAD
-PAGINATOR_NUM=1
-=======
 PAGINATOR_NUM=2
 CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL = 'account.MyUser'
@@ -155,4 +152,3 @@ EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login/'
 LOGOUT_REDIRECT_URL = '/'
->>>>>>> 2bba5405ec01585e4801c988893015acf693388d
