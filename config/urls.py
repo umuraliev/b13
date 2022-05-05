@@ -22,6 +22,7 @@ from .views import get_main
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', get_main),
+    path('order/', include('order.urls')),
     path('service/', include('service.urls')),
     path('cart/', include('cart.urls')),
     path('shop/', include('shop.urls')),

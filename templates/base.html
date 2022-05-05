@@ -24,13 +24,15 @@
 					<header id="header" class="alt">
 						
 							{% if request.user.is_staff %}
-       						 <a href="/add-product"><i class="fa-duotone fa-plus"></i></a>
+								<a href="{% url 'add_product' %}">
+								<center><i class="fa-solid fa-dragon"></i></center>
+								</a>
        						 {% endif %}
        					 	{% if request.user.is_authenticated %}
-							<a href="{% url 'cart_detail' %}">
+							<div><a href="{% url 'cart_detail' %}">
 							<i class="fa-solid fa-cart-shopping"></i>
-							<div><a href="/account/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></div>
-						</a>
+							<div style="margin-right:auto;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
+						</a></div>
 							{% endif %}
 						<h1><a href="index.html"></a></h1>
 						
