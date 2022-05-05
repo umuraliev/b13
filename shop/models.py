@@ -39,5 +39,11 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
     
     
-    def __str__(self):
-        return self.name
+    def get_absolute_url(self):
+        return reverse('product_details',
+                        args=[self.slug, ])
+
+
+    def save(self):
+        self.slug = self.name.lower().replace(" ", '-')
+        return super().save()
