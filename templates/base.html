@@ -42,10 +42,10 @@
 							<h2>Menu</h2>
 							<ul class="links">
 								<li><a href="/">Главная</a></li>
-								<li><a href="/service">Услуги</a></li>
-								<li><a href="/shop">Магазин</a></li>
-								<li><a href="account/login/">Вход</a></li>
-								<li><a href="account/sign_up/">Регистрация</a></li>
+								<li><a href="{% url 'services_list' %}">Услуги</a></li>
+								<li><a href="{% url 'products_list' %}">Магазин</a></li>
+								<li><a href="{% url 'login' %}">Вход</a></li>
+								<li><a href="{% url 'sign_up' %}">Регистрация</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
