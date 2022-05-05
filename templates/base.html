@@ -26,28 +26,30 @@
 							<i class="fa-solid fa-cart-shopping"></i>
 						</a>
 						<h1><a href="index.html">Solid State</a></h1>
-						
-						<nav style="display: flex;">
-							<form class="d-flex" action="{% url 'search_product' %}">
-							<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="poisk" aria-label="Search">
-							<button class="btn btn-outline-primary" type="submit">Search</button>
+						<nav style="display:flex">
+							<form class="d-flex" action="{% url 'search' %}">
+								<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="Что ищете?" aria-label="Search">
+								<button class="btn btn-outline-primary" type="submit">Search</button>
 							</form>
 							<a href="#menu">Menu</a>
 						</nav>
 					</header>
 				<!-- Menu -->
+				
 					<nav id="menu">
 						<div class="inner">
+
 							<h2>Menu</h2>
 							<ul class="links">
 								<li><a href="/">Главная</a></li>
-								<li><a href="/service">Услуги</a></li>
-								<li><a href="/shop">Магазин</a></li>
-								<li><a href="account/login/">Вход</a></li>
-								<li><a href="account/sign_up/">Регистрация</a></li>
+								<li><a href="{% url 'services_list' %}">Услуги</a></li>
+								<li><a href="{% url 'products_list' %}">Магазин</a></li>
+								<li><a href="{% url 'login' %}">Вход</a></li>
+								<li><a href="{% url 'sign_up' %}">Регистрация</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
+						
                     </nav>
 
     {% block content %}
@@ -69,7 +71,7 @@
     <span class="step-links">
         {% if products.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a class="w3-left w3-btn" href="?page={{ products.previous_page_number }}">previous</a>
+            <a href="?page={{ products.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -77,7 +79,7 @@
         </span>
 
         {% if products.has_next %}
-            <a class="w3-right w3-btn" href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.next_page_number }}">next</a>
             <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
