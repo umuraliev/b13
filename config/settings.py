@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'service',
     'cart',
     'shop',
+    'account',
 
 ]
 
@@ -136,3 +137,18 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 PAGINATOR_NUM=2
+CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'account.MyUser'
+
+# send email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+
+# redirect
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/'
