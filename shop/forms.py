@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import CharField, EmailField, ModelForm, Textarea, ValidationError, Form
 from .models import Product, Comment
 
 
@@ -13,8 +13,14 @@ class ProductForm(ModelForm):
             raise ValidationError('Product with such name already exists!')
         return self.cleaned_data
 
+class EmailPostForm(Form):
+    name = CharField(max_length=25)
+    email = EmailField()
+    to = EmailField()
+    comments = CharField(required=False,
+                               widget=Textarea)
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'body')
+        exclude = ('created', 'updated', 'active', 'product', )

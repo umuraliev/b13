@@ -33,10 +33,10 @@ def get_product_list(request, category_slug=None):
     Функция вытаскивает продукты и если слаг приходит заполненным,
     то фильтрует по слагу и в конце вовращаем контексты
     """
-
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True).order_by('created_at')
+    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
@@ -69,9 +69,25 @@ def get_product_detail(request, product_slug):
     """
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
+    comments = product.comments.filter(active=True)
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product = product
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     context = {
         'product': product,
-        'cart_product_form': cart_product_form
+        'cart_product_form': cart_product_form,
+        'comments': comments,
+        'comment_form': comment_form
     }
     return render(
         request, 'product_detail.html', context
@@ -94,31 +110,3 @@ def create_product(request):
 def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
     return redirect('/')
-
-
-def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Product, slug=post,
-                                   status='published',
-                                   publish__year=year,
-                                   publish__month=month,
-                                   publish__day=day)
-    # List of active comments for this post
-    comments = post.comments.filter(active=True)
-
-    if request.method == 'POST':
-        # A comment was posted
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-    return render(request,
-                  'product_detail.html',
-                 {'post': post,
-                  'comments': comments,
-                  'comment_form': comment_form})
