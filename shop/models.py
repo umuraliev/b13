@@ -9,8 +9,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('name', )
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
     def __str__(self):
         return self.name
@@ -36,13 +36,19 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('name', )
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
     
     
     def get_absolute_url(self):
         return reverse('product_details',
                         args=[self.slug, ])
+
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
 
     def save(self):
@@ -64,3 +70,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
+

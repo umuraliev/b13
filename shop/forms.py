@@ -13,6 +13,12 @@ class ProductForm(ModelForm):
             raise ValidationError('Product with such name already exists!')
         return self.cleaned_data
 
+
+class UpdateForm(ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('created_at', 'updated_at', 'slug')
+
 class EmailPostForm(Form):
     name = CharField(max_length=25)
     email = EmailField()
@@ -24,3 +30,4 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         exclude = ('created', 'updated', 'active', 'product', )
+
