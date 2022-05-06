@@ -100,7 +100,7 @@ def update_product(request, product_slug):
     product = Product.objects.get(slug=product_slug)
     form = UpdateForm(instance=product)
     if request.method == 'POST':
-        form = UpdateForm(request.POST, instance=product)
+        form = UpdateForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             return redirect('products_list')
