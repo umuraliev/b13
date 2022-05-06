@@ -14,6 +14,7 @@
     <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
+
     
     {% with comments.count as total_comments %}
     <h2>
@@ -42,7 +43,6 @@
 					</form>
 				{% endif %}
 
-
     <form action="{% url 'cart_add' product.id %}" method="post">
         {{ cart_product_form }}
         {% csrf_token %}
@@ -50,11 +50,13 @@
     </form>
     {% if request.user.is_staff %}
       <div class="d-flex justify-content-between total font-weight-bold mt-4">
-        <button type="button" class="btn btn-success">Update</button>
+
+        <a href="{% url 'update_product' product.slug %}"><button type="button" class="btn btn-success" >Update</button></a>
+
         <a href="{% url 'delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
       </div>
     {% endif %}
   </div>
-  
+
 
 {% endblock %}
