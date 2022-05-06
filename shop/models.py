@@ -43,6 +43,11 @@ class Product(models.Model):
         return reverse('product_details',
                         args=[self.slug, ])
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
 
     def save(self):
         self.slug = self.name.lower().replace(" ", '-')

@@ -12,4 +12,8 @@ class ProductForm(ModelForm):
         if Product.objects.filter(slug=slug).exists():
             raise ValidationError('Product with such name already exists!')
         return self.cleaned_data
-    
+
+class UpdateForm(ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('created_at', 'updated_at', 'slug')
