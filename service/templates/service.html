@@ -28,6 +28,21 @@
 				<p>Борода и усы для мужчины важная особенность издревле. И если вы думаете, что «отпустить бороду» или «отрастить усы» — значит просто дать волосам на лице расти как они хотят, то вы сильно ошибаетесь. За ними нужен особый уход как ежедневный, так и профессиональный.</p>
 
 				<section class="features">
+					<div id="sidebar">
+						<div style="margin-left: -80px">
+						<a href="{% url 'services_list' %}?-price=sort">
+						  <button class="btn btn-outline-primary">Expensive</button>
+						</a>
+						<a href="{% url 'services_list' %}?price=sort">
+						  <button class="btn btn-outline-primary">Low</button>
+						</a>
+						<ul style="margin-top: 10px;">
+						  <li {% if not category %}class="selected"{% endif %}>
+							<a href="{% url 'services_list' %}">All</a>
+						  </li>
+
+
+				<section class="features">
 					<article>
 						<a href="#" class="image"><img src="{% static 'images/haircut.jpg' %}" alt="" /></a>
 						<h3 class="major">МУЖСКИЕ
