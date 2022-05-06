@@ -140,7 +140,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 PAGINATOR_NUM=1
 CART_SESSION_ID = 'cart'
-AUTH_USER_MODEL = 'account.MyUser'
+AUTH_USER_MODEL = 'myaccount.MyUser'
 
 # send email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
