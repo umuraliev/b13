@@ -26,18 +26,19 @@
 							<i class="fa-solid fa-cart-shopping"></i>
 						</a>
 						<h1><a href="index.html">Solid State</a></h1>
-						
-						<nav style="display: flex;">
-							<form class="d-flex" action="{% url 'search_product' %}">
-							<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="poisk" aria-label="Search">
-							<button class="btn btn-outline-primary" type="submit">Search</button>
+						<nav style="display:flex">
+							<form class="d-flex" action="{% url 'search' %}">
+								<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="Что ищете?" aria-label="Search">
+								<button class="btn btn-outline-primary" type="submit">Search</button>
 							</form>
 							<a href="#menu">Menu</a>
 						</nav>
 					</header>
 				<!-- Menu -->
+				
 					<nav id="menu">
 						<div class="inner">
+
 							<h2>Menu</h2>
 							<ul class="links">
 								<li><a href="/">Главная</a></li>
@@ -48,6 +49,7 @@
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
+						
                     </nav>
 
     {% block content %}
