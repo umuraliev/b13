@@ -12,6 +12,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'address', 'paid', 'created_at', 'get_total_cost']
     list_display_links = ['id', 'created_at']
     list_filter = ['paid', 'address']
+
     inlines = [OrderItemInline]
     
     def get_total_cost(self, field):

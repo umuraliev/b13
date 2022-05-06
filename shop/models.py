@@ -1,3 +1,4 @@
+from itertools import product
 from django.db import models
 from django.urls import reverse
 
@@ -43,6 +44,7 @@ class Product(models.Model):
         return reverse('product_details',
                         args=[self.slug, ])
 
+
     @property
     def image_url(self):
         if self.image and hasattr(self.image, 'url'):
@@ -52,3 +54,20 @@ class Product(models.Model):
     def save(self):
         self.slug = self.name.lower().replace(" ", '-')
         return super().save()
+
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return 'Comment by {} on {}'.format(self.name, self.post)
+

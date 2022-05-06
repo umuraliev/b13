@@ -52,13 +52,16 @@
 						{% for product in products %}
 						<div>
 						<a href="{{ product.get_absolute_url }}" class="image">
-							<img src="{{ product.image_url }}"/></a>
+
+							<img src="{{product.image.url}}" alt="" /></a>
+
 						<h3 class="major">{{product.name}}</h3>
 						<h3 class="major">{{product.price}} $</h3>
 						<p> {{product.description}}</p>
 						<a href="{{ product.get_absolute_url }}" class="special" style="margin-bottom: 70px">Купить</a>
 						</div>
 						{% endfor %}
+
 					</article>
 				</center>
 				</section>

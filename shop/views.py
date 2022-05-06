@@ -4,8 +4,8 @@ from django.core.paginator import Paginator
 
 from cart.forms import CartAddProductForm
 from .helpers import product_list_filter_sort
-from .models import Category, Product
-from .forms import *
+from .models import Category, Product, Comment
+from .forms import ProductForm, CommentForm
 from django.db.models import Q
 from django.conf import settings
 
@@ -34,10 +34,10 @@ def get_product_list(request, category_slug=None):
     Функция вытаскивает продукты и если слаг приходит заполненным,
     то фильтрует по слагу и в конце вовращаем контексты
     """
-
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True).order_by('created_at')
+    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
@@ -70,9 +70,25 @@ def get_product_detail(request, product_slug):
     """
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
+    comments = product.comments.filter(active=True)
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product = product
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     context = {
         'product': product,
-        'cart_product_form': cart_product_form
+        'cart_product_form': cart_product_form,
+        'comments': comments,
+        'comment_form': comment_form
     }
     return render(
         request, 'product_detail.html', context
@@ -96,6 +112,7 @@ def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
     return redirect('/')
 
+  
 def update_product(request, product_slug):
     product = Product.objects.get(slug=product_slug)
     form = UpdateForm(instance=product)
@@ -106,6 +123,3 @@ def update_product(request, product_slug):
             return redirect('products_list')
     context = {'form': form}
     return render(request, 'update_product.html', context)
-
-
-
