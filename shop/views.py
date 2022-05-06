@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from cart.forms import CartAddProductForm
 from .helpers import product_list_filter_sort
 from .models import Category, Product, Comment
-from .forms import ProductForm, CommentForm
+from .forms import ProductForm, CommentForm, UpdateForm
 from django.db.models import Q
 from django.conf import settings
 
