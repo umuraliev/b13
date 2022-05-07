@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from order.forms import OrderCreateForm
 from order.models import Order, OrderItem
 from cart.helpers import Cart
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 class OrderCreateView(CreateView):
     model = Order
@@ -29,3 +31,11 @@ class OrderCreateView(CreateView):
         OrderItem.objects.bulk_create(order_items)
         cart.clear()
         return render(self.request, 'created.html', {'order': order})
+
+
+@staff_member_required
+def admin_order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request,
+                  'detail.html',
+                  {'order': order})
