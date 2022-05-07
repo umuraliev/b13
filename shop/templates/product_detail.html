@@ -15,34 +15,35 @@
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
 
-    
-    {% with comments.count as total_comments %}
-    <h2>
-        {{ total_comments }} comment{{ total_comments|pluralize }}
-    </h2>
-		{% endwith %}
-			{% for comment in comments %}
-				<div class="comment">
-					<p class="info">
-						Comment {{ forloop.counter }} by {{ comment.name }}
-						{{ comment.created }}
-					</p>
-					{{ comment.body|linebreaks }}
-				</div>
-			{% empty %}
-				<p>There are no comments yet.</p>
-			{% endfor %}
-			{% if new_comment %}
-					<h2>Your comment has been added.</h2>
-				{% else %}
-					<h3>Add a new comment</h3>
-					<form action="." method="post">
-						{% csrf_token %}
-						{{ comment_form.as_p }}
-						<p><input type="submit" value="Add comment"></p>
-					</form>
-				{% endif %}
-
+    {% if request.user.is_authenticated%}
+        
+        {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+        {% endwith %}
+          {% for comment in comments %}
+            <div class="comment">
+              <p class="info">
+                Comment {{ forloop.counter }} by {{ comment.name }}
+                {{ comment.created }}
+              </p>
+              {{ comment.body|linebreaks }}
+            </div>
+          {% empty %}
+            <p>There are no comments yet.</p>
+          {% endfor %}
+          {% if new_comment %}
+              <h2>Your comment has been added.</h2>
+            {% else %}
+              <h3>Add a new comment</h3>
+              <form action="." method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <p><input type="submit" value="Add comment"></p>
+              </form>
+            {% endif %}
+    {% endif %}
     <form action="{% url 'cart_add' product.id %}" method="post">
         {{ cart_product_form }}
         {% csrf_token %}
