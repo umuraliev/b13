@@ -1,10 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-
+from django.http import HttpResponse
 from cart.forms import CartAddProductForm
 from .helpers import product_list_filter_sort
-from .models import Category, Product, Comment
+from .models import *
 from .forms import ProductForm, CommentForm, UpdateForm
 from django.db.models import Q
 from django.conf import settings
@@ -70,7 +69,9 @@ def get_product_detail(request, product_slug):
     """
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
+    comment = Comment()
     comments = product.comments.filter(active=True)
+
     if request.method == 'POST':
         # A comment was posted
         comment_form = CommentForm(data=request.POST)
@@ -83,6 +84,7 @@ def get_product_detail(request, product_slug):
             new_comment.save()
     else:
         comment_form = CommentForm()
+
 
     context = {
         'product': product,

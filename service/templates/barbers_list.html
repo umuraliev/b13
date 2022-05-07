@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}
+Barbers:
+{% endblock %}
+
+{% block content %}
+    <section class="features">
+        <div id="sidebar">
+            <div style="margin-left: 80px; margin-top: 200px;">
+                <a href="{% url 'barber_list_by_category' category.slug %}?-price=sort">
+                  <button class="btn btn-outline-primary">Expensive</button>
+                </a>
+                <a href="{% url 'barber_list_by_category' category.slug %}?price=sort">
+                  <button class="btn btn-outline-primary">Low</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+        <article>
+            <div style="display:flex;flex-wrap:wrap;align-content: center;justify-content: space-between;width: 80vw;">
+            {% for barber in barbers %}
+                <div style="margin-top: 30px; margin-left: 40px;">
+                <img src="{{barber.image.url}}" alt="" style="weight: 550px; height: 350px;"/>
+                <h3 class="major">{{barber.name}} {{barber.last_name}}</h3>
+                <p> {{barber.description}} </p>
+                <h3 class="major">{{barber.price}} $</h3>
+                </div>
+            {% endfor %}
+        </article>
+
+        {% if barbers %}
+			<div class="pagination">
+			<span class="step-links">
+        {% if barbers.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a class="w3-left w3-btn" href="?page={{ barbers.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ barbers.number }} of {{ barbers.paginator.num_pages }}.
+        </span>
+
+        {% if barbers.has_next %}
+            <a class="w3-right w3-btn" href="?page={{ barbers.next_page_number }}">next</a>
+            <a href="?page={{ barbers.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+		</span>
+		</div>
+		{% endif %}
+
+{% endblock %}
+
