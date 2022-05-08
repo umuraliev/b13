@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Order(models.Model):
-    user = models.ForeignKey("account.MyUser", related_name='orders', on_delete=models.CASCADE)
+    user = models.ForeignKey("myaccount.MyUser", related_name='orders', on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

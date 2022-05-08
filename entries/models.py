@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import User
+from myaccount.models import User
 from service.models import Category
 
 class Entries(models.Model):
