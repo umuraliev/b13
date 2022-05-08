@@ -33,14 +33,14 @@
 					<div id="sidebar">
 						<div style="margin-left: -80px">
 						<a href="{% url 'products_list' %}?-price=sort">
-						  <button class="btn btn-outline-primary">Сначала дорогое</button>
+						  <button class="btn btn-outline-primary">Сначала дорогие</button>
 						</a>
 						<a href="{% url 'products_list' %}?price=sort">
-						  <button class="btn btn-outline-primary">Сначала дешевое</button>
+						  <button class="btn btn-outline-primary">Сначала дешевые</button>
 						</a>
 						<ul style="margin-top: 10px;">
 						  <li {% if not category %}class="selected"{% endif %}>
-							<a href="{% url 'products_list' %}">Все категории</a>
+							<a href="{% url 'products_list' %}">Все товары</a>
 						  </li>
 							{% for cat in categories %}
 								<li {% if category.slug == cat.slug %}class="selected"{% endif %}>

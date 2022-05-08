@@ -1,7 +1,6 @@
 from itertools import product
 from django.db import models
 from django.urls import reverse
-from service.models import Barber
 from myaccount.models import MyUser
 
 
@@ -61,8 +60,6 @@ class Product(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
-    # barber = models.ForeignKey(Barber, related_name='barbers', on_delete=models.CASCADE)
-    # user = models.ForeignKey(MyUser, related_name='users', on_delete=models.CASCADE)
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
@@ -74,5 +71,5 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name, self.post)
+        return 'Comment by {} with email: {}'.format(self.name, self.email)
 
