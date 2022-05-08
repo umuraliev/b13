@@ -7,6 +7,7 @@
 
 {% block content %}
 <section id="wrapper" style="margin-top:200px;">
+{% if cart.product %}
 	<h1>Ваша Корзина</h1>
     <table class="cart">
         <thead>
@@ -51,5 +52,12 @@
         <a href="{% url 'products_list' %}" class="button light">Продолжить покупки</a>
         <a href="{% url 'order_create' %}" class="button">Перейти к покупке</a>
     </p>
+{% else %}
+<h2> В вашей корзине нет товаров </h2>
+<p class="text-right">
+    <a href="{% url 'products_list' %}" class="button light">Продолжить покупки</a>
+    <a href="{% url 'order-history' %}"><button type="button" class="btn btn-info">История заказов</button></a>
+</p> 
+{% endif %}
 </section>
 {%endblock%}

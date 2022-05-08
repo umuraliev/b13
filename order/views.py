@@ -32,10 +32,11 @@ class OrderCreateView(CreateView):
         cart.clear()
         return render(self.request, 'created.html', {'order': order})
 
+def order_history(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'history.html', {'orders': orders})
 
-@staff_member_required
-def admin_order_detail(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    return render(request,
-                  'detail.html',
-                  {'order': order})
+def order_history_detail(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order_items = order.items.all()
+    return render(request, 'history_detail.html', locals())

@@ -23,8 +23,7 @@ class EmailPostForm(Form):
     name = CharField(max_length=25)
     email = EmailField()
     to = EmailField()
-    comments = CharField(required=False,
-                               widget=Textarea)
+    comments = CharField(required=False,widget=Textarea)
 
 class CommentForm(ModelForm):
     class Meta:
