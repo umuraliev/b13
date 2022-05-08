@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # myapps
     'shop',
     'cart',
     'order',
     'myaccount',
     'service',
+    'social_django',
 
 ]
 
@@ -54,6 +57,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 1
+    'social_django.middleware.SocialAuthExceptionMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -72,6 +78,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+
+
+                # 2
+                'social_django.context_processors.backends',  
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -154,3 +165,20 @@ EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/shop/'
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '290598619947582'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '103b9833b222b01805449b489ae5a85e'  # App Secret
