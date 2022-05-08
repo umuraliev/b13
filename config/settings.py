@@ -83,6 +83,7 @@ TEMPLATES = [
                 # 2
                 'social_django.context_processors.backends',  
                 'social_django.context_processors.login_redirect'
+                
             ],
         },
     },
@@ -172,12 +173,23 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.github.GithubOAuth2',
 
+    'social_core.backends.google.GoogleOAuth2',
+
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = 'login/google-oauth2'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/shop/'
+
+# LOGIN_REDIRECT_URL = 'myaccount/templates/base.html'
+# LOGIN_URL = '/account/login/'
+# LOGOUT_REDIRECT_URL = '/account/login'
+
+
+SOCIAL_AUTH2_GOOGLE_OAUTH2_CLIENT_ID = '621637998433-n9gqqsmte0g3ltfbt9j3hit8htimrql7.apps.googleusercontent.com'
+SOCIAL_AUTH2_GOOGLE_OAUTH2_CLIENT_SECRET = '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'
+
 
 
 SOCIAL_AUTH_FACEBOOK_KEY = '290598619947582'  # App ID

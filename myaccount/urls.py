@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, LoginView
 
 from .views import RegisterView, SignInView, activate
 
@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', SignInView.as_view(), name='login'),
     path('activate/<str:activation_code>/', activate, name='activate'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
 ]
