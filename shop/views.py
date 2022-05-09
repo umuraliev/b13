@@ -69,9 +69,8 @@ def get_product_detail(request, product_slug):
     """
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
-    comment = Comment()
     comments = product.comments.filter(active=True)
-
+    new_comment = None
     if request.method == 'POST':
         # A comment was posted
         comment_form = CommentForm(data=request.POST)
@@ -90,7 +89,8 @@ def get_product_detail(request, product_slug):
         'product': product,
         'cart_product_form': cart_product_form,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'new_comment': new_comment,
     }
     return render(
         request, 'product_detail.html', context
