@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>History of {{ request.user }} orders:</h1>
-<table style="margin-top: 200px;" class="table table-success">
+<div style="margin-top: 200px;">
+    <h1>History of orders user with email {{ request.user }} :</h1>
+<table class="table table-success">
   <thead>
     <tr>
+    </div>
       <th scope="col">Номер заказа</th>
       <th scope="col">Дата оформления</th>
       <th scope="col">Сумма заказа</th>
