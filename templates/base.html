@@ -47,14 +47,19 @@
 				<!-- Menu -->
 				
 					<nav id="menu">
-						<div class="inner">
+						<div style="background-color:rgba(255, 255, 255, 0.1);" class="inner">
 
-							<h2>Menu</h2>
+							<h2 >Menu</h2>
 							<ul class="links">
 								<li><a href="/">Главная</a></li>
 								<li><a href="{% url 'services_list' %}">Услуги</a></li>
 								<li><a href="{% url 'products_list' %}">Магазин</a></li>
+								{% if request.user.is_authenticated != True %}
 								<li><a href="{% url 'login' %}">Вход</a></li>
+								{% endif %}
+								{% if request.user.is_authenticated %}
+								<li><a href="{% url 'password_change' %}">Сменить пароль</a></li>
+								{% endif %}
 								<li><a href="{% url 'sign_up' %}">Регистрация</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
