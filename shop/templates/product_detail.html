@@ -19,7 +19,7 @@
     {% if request.user.is_authenticated %}
     {% with comments.count as total_comments %}
     <h2>
-        {{ total_comments }} comment{{ total_comments|pluralize }}
+        {{ total_comments }} Review{{ total_comments|pluralize }}
     </h2>
 		{% endwith %}
 			{% for comment in comments %}
@@ -31,12 +31,12 @@
 					{{ comment.body|linebreaks }}
 				</div>
 			{% empty %}
-				<p>Никто еще не оставил комментарий.</p>
+				<p>Никто еще не оставил отзыв.</p>
 			{% endfor %}
 			  {% if new_comment %}
-					<h2>Ваш комментарий добавлен.</h2>
+					<h2>Ваш отзыв добавлен.</h2>
 				{% else %}
-					<h2>Оставить комментарий</h2>
+					<h2>Оставить отзыв</h2>
 					<form action="." method="post">
 						{% csrf_token %}
 						{{ comment_form.as_p }}
@@ -61,21 +61,21 @@
     {% else %}
     {% with comments.count as total_comments %}
     <h2>
-        {{ total_comments }} comment{{ total_comments|pluralize }}
+        {{ total_comments }} review {{ total_comments|pluralize }}
     </h2>
 		{% endwith %}
 			{% for comment in comments %}
 				<div class="comment">
 					<p class="info">
-						Comment {{ forloop.counter }} by {{ comment.name }}
+						Review{{ forloop.counter }} by {{ comment.name }}
 						{{ comment.created }}
 					</p>
 					{{ comment.body|linebreaks }}
 				</div>
 			{% empty %}
-				<p>Никто еще не оставил комментарий.</p>
+				<p>Никто еще не оставил отзыв о продукте.</p>
 			{% endfor %}
-          <h2>Только авторизованные пользователи могут оставлять комментарий </h2>
+          <h2>Только авторизованные пользователи могут оставлять отзывы </h2>
 
       {% endif %}
 

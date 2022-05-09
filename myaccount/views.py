@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import *
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView
@@ -36,3 +36,24 @@ def activate(request, activation_code):
     user.activation_code = ''
     user.save()
     return redirect(reverse_lazy('login'))
+
+class PasswordChange(PasswordChangeView):
+    template_name = 'password_change.html'
+    success_url = reverse_lazy('password_change_done')
+
+class ChangeDone(PasswordChangeDoneView):
+    template_name = 'password_change_done.html'
+    success_url = reverse_lazy('main')
+
+class PassReset(PasswordResetView):
+    template_name = 'password_reset_form.html'
+
+class PassResetDone(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
+
+class PassResetConfirm(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+
+class PassResetComplete(PasswordResetCompleteView):
+    template_name = 'password_reset_complete.html'
+
