@@ -7,14 +7,16 @@
 
 {% block content %}
 
-  <div class="product-detail">
+  <div style="margin-top: 250px; " class="product-detail">
     <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-    <h1>{{ product.name }}</h1>
-    <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+    <h2>{{ product.name }}</h2>
+    <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
 
+
     
+    {% if request.user.is_authenticated %}
     {% with comments.count as total_comments %}
     <h2>
         {{ total_comments }} comment{{ total_comments|pluralize }}
@@ -29,33 +31,52 @@
 					{{ comment.body|linebreaks }}
 				</div>
 			{% empty %}
-				<p>There are no comments yet.</p>
+				<p>Никто еще не оставил комментарий.</p>
 			{% endfor %}
-			{% if new_comment %}
-					<h2>Your comment has been added.</h2>
+			  {% if new_comment %}
+					<h2>Ваш комментарий добавлен.</h2>
 				{% else %}
-					<h2>Add a new comment</h2>
+					<h2>Оставить комментарий</h2>
 					<form action="." method="post">
 						{% csrf_token %}
 						{{ comment_form.as_p }}
 						<p><input type="submit" value="Add comment"></p>
 					</form>
 				{% endif %}
+        <form action="{% url 'cart_add' product.id %}" method="post">
+          {{ cart_product_form }}
+          {% csrf_token %}
+          <input type="submit" value="Add to cart">
+        </form>
+       {% if request.user.is_staff %}
+        <div class="d-flex justify-content-between total font-weight-bold mt-4">
+  
+          <a href="{% url 'update_product' product.slug %}"><button type="button" class="btn btn-success" >Update</button></a>
+  
+          <a href="{% url 'delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
+        </div>
+        {% endif %}
+    </div>
+   
+    {% else %}
+    {% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+		{% endwith %}
+			{% for comment in comments %}
+				<div class="comment">
+					<p class="info">
+						Comment {{ forloop.counter }} by {{ comment.name }}
+						{{ comment.created }}
+					</p>
+					{{ comment.body|linebreaks }}
+				</div>
+			{% empty %}
+				<p>Никто еще не оставил комментарий.</p>
+			{% endfor %}
+          <h2>Только авторизованные пользователи могут оставлять комментарий </h2>
 
-    <form action="{% url 'cart_add' product.id %}" method="post">
-        {{ cart_product_form }}
-        {% csrf_token %}
-        <input type="submit" value="Add to cart">
-    </form>
-    {% if request.user.is_staff %}
-      <div class="d-flex justify-content-between total font-weight-bold mt-4">
-
-        <a href="{% url 'update_product' product.slug %}"><button type="button" class="btn btn-success" >Update</button></a>
-
-        <a href="{% url 'delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
-      </div>
-    {% endif %}
-  </div>
-
+      {% endif %}
 
 {% endblock %}
