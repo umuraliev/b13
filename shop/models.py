@@ -61,8 +61,6 @@ class Product(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
-    # barber = models.ForeignKey(Barber, related_name='barbers', on_delete=models.CASCADE)
-    # user = models.ForeignKey(MyUser, related_name='users', on_delete=models.CASCADE)
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()

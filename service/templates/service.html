@@ -33,7 +33,7 @@
 								<img src="{{ cat.image_url}}" alt="" style="weight: 250px; height: 250px;"/>
 								<h3 class="major">{{cat.title}}</h3>
 								<p> {{cat.description}}</p>
-								<a href="{% url 'barber_list_by_category' cat.slug  %}"><button type="submit" name="Submit" class="btn btn-secondary">Записаться</button></a>
+								<a href="{% url 'barber_list_by_category' cat.slug  %}"><button type="submit" name="Submit" class="btn btn-secondary">Выбрать</button></a>
 							</div>
 							{% endfor %}
 							</div>

@@ -1,5 +1,7 @@
+from django.contrib.admin.widgets import AdminDateWidget
 from django.db import models
 from django.urls import reverse
+from myaccount.models import MyUser
 
 
 class Category(models.Model):
@@ -39,3 +41,10 @@ class Barber(models.Model):
         return f'{self.name}'
 
 
+
+
+class EntriesTime(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    barber = models.ForeignKey(Barber, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True)

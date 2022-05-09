@@ -29,12 +29,12 @@
 								</a>
        						 {% endif %}
        					 	{% if request.user.is_authenticated %}
-							<div><a href="{% url 'cart_detail' %}">
-							<i class="fa-solid fa-cart-shopping"></i>
-							<div style="margin-right:auto;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
-						</a></div>
-							{% endif %}
-						<h1><a href="index.html"></a></h1>
+							  <div style="display: flex;"><a href="{% url 'cart_detail' %}">
+							  <i class="fa-solid fa-cart-shopping"></i>
+							  <div style="margin-right:auto; margin-left: 20px;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
+							</a></div>
+						  	{% endif %}
+							<h1><a href="index.html"></a></h1>
 						
 						<nav style="display:flex">
 							<form class="d-flex" action="{% url 'search' %}">

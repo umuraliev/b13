@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from .helpers import barber_list_filter_sort
 from django.conf import settings
 from django.core.paginator import Paginator
 from shop.forms import CommentForm
+from .forms import *
 
 
 def get_services_list(request):
@@ -14,7 +15,7 @@ def get_services_list(request):
 
 def get_barbers_list(request, category_slug=None):
     """
-    Функция вытаскивает продукты и если слаг приходит заполненным,
+    Функция вытаскивает барберов и если слаг приходит заполненным,
     то фильтрует по слагу и в конце вовращаем контексты
     """
     category = None
@@ -44,6 +45,11 @@ def get_barbers_list(request, category_slug=None):
         'barbers_list.html',
         context=context
     )
+
+
+def entries_time(request):
+    form = EntriesForm()
+    return render(request, 'entries.html', {'form': form })
 
 
 # def get_barbers_list(request, category_title):
