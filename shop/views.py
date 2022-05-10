@@ -71,6 +71,8 @@ def get_product_detail(request, product_slug):
     cart_product_form = CartAddProductForm()
     comments = product.comments.filter(active=True)
     new_comment = None
+    likes = product.likes.all().count()
+    dislikes = product.dislikes.all().count()
     if request.method == 'POST':
         # A comment was posted
         comment_form = CommentForm(data=request.POST)
@@ -91,6 +93,8 @@ def get_product_detail(request, product_slug):
         'comments': comments,
         'comment_form': comment_form,
         'new_comment': new_comment,
+        'likes': likes,
+        'dislikes': dislikes,
     }
     return render(
         request, 'product_detail.html', context
@@ -126,3 +130,19 @@ def update_product(request, product_slug):
     context = {'form': form}
     return render(request, 'update_product.html', context)
 
+
+def like_product(request, id):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    if Like.objects.filter(user=request.user, product=product).exists():
+        Like.objects.get(user=request.user, product=product).delete()
+    else:
+        Like.objects.create(user=request.user, product=product)
+    return redirect('product_details', product.slug)
+
+def dislike_product(request, id):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    if Dislike.objects.filter(user=request.user, product=product).exists():
+        Dislike.objects.get(user=request.user, product=product).delete()
+    else:
+        Dislike.objects.create(user=request.user, product=product)
+    return redirect('product_details', product.slug)

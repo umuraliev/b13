@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-
 from shop.forms import CommentForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
