@@ -51,5 +51,6 @@
         <a href="{% url 'products_list' %}" class="button light">Продолжить покупки</a>
         <a href="{% url 'order_create' %}" class="button">Перейти к покупке</a>
     </p>
-</section>
+    <a href="{% url 'order-history' %}"><button type="button" class="btn btn-info">История заказов</button></a>
+
 {%endblock%}

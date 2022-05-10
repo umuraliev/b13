@@ -1,8 +1,28 @@
-from itertools import product
-from django.db import models
 from django.urls import reverse
-from service.models import Barber
 from myaccount.models import MyUser
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+
+
+# class LikeDislike(models.Model):
+#     LIKE = 1
+#     DISLIKE = -1
+ 
+#     VOTES = (
+#         (DISLIKE, 'Не нравится'),
+#         (LIKE, 'Нравится')
+#     )
+ 
+#     vote = models.SmallIntegerField(verbose_name=("Голос"), choices=VOTES)
+#     user = models.ForeignKey(MyUser, verbose_name=("Пользователь"))
+ 
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey()
+ 
+#     objects = LikeDislikeManager()
 
 
 class Category(models.Model):
@@ -24,6 +44,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    # votes = GenericRelation(LikeDislike, related_query_name='products')
     category = models.ForeignKey(
         Category, related_name='products', on_delete=models.CASCADE
     )
@@ -61,8 +82,6 @@ class Product(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
-    # barber = models.ForeignKey(Barber, related_name='barberscom', on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, related_name='userscom', on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
@@ -76,5 +95,23 @@ class Comment(models.Model):
         verbose_name_plural = 'Комментарии'
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name, self.email)
+        return 'Comment by {} with email: {}'.format(self.name, self.email)
 
+
+# class LikeDislike(models.Model):
+#     LIKE = 1
+#     DISLIKE = -1
+ 
+#     VOTES = (
+#         (DISLIKE, 'Не нравится'),
+#         (LIKE, 'Нравится')
+#     )
+ 
+#     vote = models.SmallIntegerField(verbose_name=("Голос"), choices=VOTES)
+#     user = models.ForeignKey(MyUser, verbose_name=("Пользователь"))
+ 
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey()
+ 
+#     objects = LikeDislikeManager()

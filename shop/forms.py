@@ -17,14 +17,13 @@ class ProductForm(ModelForm):
 class UpdateForm(ModelForm):
     class Meta:
         model = Product
-        exclude = ('created_at', 'updated_at', 'slug')
+        exclude = ('created_at', 'updated_at', 'slug', 'available')
 
 class EmailPostForm(Form):
     name = CharField(max_length=25)
     email = EmailField()
     to = EmailField()
-    comments = CharField(required=False,
-                               widget=Textarea)
+    comments = CharField(required=False,widget=Textarea)
 
 class CommentForm(ModelForm):
     class Meta:
