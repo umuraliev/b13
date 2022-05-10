@@ -13,6 +13,10 @@
 		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
 	</head>
 	<body class="is-preload">
 
@@ -29,12 +33,12 @@
 								</a>
        						 {% endif %}
        					 	{% if request.user.is_authenticated %}
-							<div><a href="{% url 'cart_detail' %}">
-							<i class="fa-solid fa-cart-shopping"></i>
-							<div style="margin-right:auto;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
-						</a></div>
-							{% endif %}
-						<h1><a href="index.html"></a></h1>
+							  <div style="display: flex;"><a href="{% url 'cart_detail' %}">
+							  <i class="fa-solid fa-cart-shopping"></i>
+							  <div style="margin-right:auto; margin-left: 20px;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
+							</a></div>
+						  	{% endif %}
+							<h1><a href="index.html"></a></h1>
 						
 						<nav style="display:flex">
 							<form class="d-flex" action="{% url 'search' %}">

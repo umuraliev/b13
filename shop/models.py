@@ -91,6 +91,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('created',)
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
         return 'Comment by {} with email: {}'.format(self.name, self.email)

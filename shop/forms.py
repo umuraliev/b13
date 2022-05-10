@@ -28,5 +28,5 @@ class EmailPostForm(Form):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        exclude = ('created', 'updated', 'active', 'product', )
+        exclude = ('created', 'updated', 'active', 'product', 'user', )
 
