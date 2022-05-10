@@ -69,7 +69,6 @@ def get_product_detail(request, product_slug):
     """
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
-    comment = Comment()
     comments = product.comments.filter(active=True)
 
     if request.method == 'POST':

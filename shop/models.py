@@ -61,6 +61,8 @@ class Product(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
+    # barber = models.ForeignKey(Barber, related_name='barberscom', on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, related_name='userscom', on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
@@ -70,7 +72,9 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('created',)
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name, self.post)
+        return 'Comment by {} on {}'.format(self.name, self.email)
 
