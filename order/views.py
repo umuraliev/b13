@@ -35,7 +35,7 @@ class OrderCreateView(CreateView):
         for obj in cart]
         OrderItem.objects.bulk_create(order_items)
         cart.clear()
-        return render(self.request, 'created.html', {'order': order})
+        return render(self.request, 'success_delivery.html', {'order': order})
 
 def order_history(request):
     orders = Order.objects.filter(user=request.user)
@@ -50,7 +50,6 @@ def order_history_detail(request, order_id):
 @login_required
 def checkout_page(request):
     #generate all other required data that you may need on the #checkout page and add them to context.
-
     if settings.BRAINTREE_PRODUCTION:
         braintree_env = braintree.Environment.Production
     else:
@@ -74,6 +73,12 @@ def checkout_page(request):
 
 @login_required
 def payment(request):
+    pay_id = 1
+    session = request.session
+    cart = session.get(str(pay_id))
+    price = cart.get('price')
+    quantity = cart.get('quantity')
+    total = float(price) * float(quantity)
     nonce_from_the_client = request.POST['paymentMethodNonce']
     customer_kwargs = {
         "first_name": request.user.first_name,
@@ -83,11 +88,11 @@ def payment(request):
     customer_create = braintree.Customer.create(customer_kwargs)
     customer_id = customer_create.customer.id
     result = braintree.Transaction.sale({
-        "amount": "18000.00",
+        "amount": int(total),
         "payment_method_nonce": nonce_from_the_client,
         "options": {
             "submit_for_settlement": True
         }
     })
-    print(result)
+    
     return HttpResponse('Ok')

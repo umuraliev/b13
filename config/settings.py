@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'oauth_app',
     'shop',
     'cart',
     'order',
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 
     'social_django.middleware.SocialAuthExceptionMiddleware', 
 ]
@@ -141,7 +144,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-PAGINATOR_NUM=1
+PAGINATOR_NUM=2
 CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL = 'myaccount.MyUser'
 

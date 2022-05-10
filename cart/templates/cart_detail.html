@@ -49,7 +49,8 @@
     </table>
     <p class="text-right">
         <a href="{% url 'products_list' %}" class="button light">Продолжить покупки</a>
-        <a href="{% url 'order_create' %}" class="button">Перейти к покупке</a>
+        <a href="{% url 'order_create' %}" class="button">Перейти к оплате по карте</a>
+        <a href="{% url 'cash_order' %}" class="button">Заказать доставку и оплатить наличными</a>
     </p>
     <a href="{% url 'order-history' %}"><button type="button" class="btn btn-info">История заказов</button></a>
 
