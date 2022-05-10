@@ -25,7 +25,6 @@ def get_barbers_list(request, category_slug=None):
     """
     category = None
     barbers = Barber.objects.all()
-    # comments = barbers.comments.filter(active=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         barbers = barbers.filter(category=category)
@@ -35,19 +34,6 @@ def get_barbers_list(request, category_slug=None):
             category_slug
         )
 
-    # if request.method == 'POST':
-    #     # A comment was posted
-    #     comment_form = CommentForm(data=request.POST)
-    #     if comment_form.is_valid():
-    #         # Create Comment object but don't save to database yet
-    #         new_comment = comment_form.save(commit=False)
-    #         # Assign the current post to the comment
-    #         new_comment.barbers = barbers
-    #         # Save the comment to the database
-    #         new_comment.save()
-    # else:
-    #     comment_form = CommentForm()
-
     paginator = Paginator(barbers, settings.PAGINATOR_NUM)
     page_number = request.GET.get('page')
     barbers = paginator.get_page(page_number)
@@ -55,8 +41,6 @@ def get_barbers_list(request, category_slug=None):
     context = {
         'barbers': barbers,
         'category': category,
-        'comments': comments,
-        'comment_form': comment_form
     }
     return render(
         request,
