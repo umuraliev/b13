@@ -125,3 +125,4 @@ def update_product(request, product_slug):
             return redirect('products_list')
     context = {'form': form}
     return render(request, 'update_product.html', context)
+

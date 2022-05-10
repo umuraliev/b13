@@ -1,21 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Thank you{% endblock %}
 
 {% block content %}
 <script src="https://js.braintreegateway.com/web/dropin/1.18.0/js/dropin.min.js"></script>
 <div style='margin-top: 200px;'>
     <form autocomplete="off">
-        {% if braintree_error %}
-          <div class="alert alert-danger fade in">
-              <button class="close" data-dismiss="alert">&times;</button>
-              {{ braintree_error|safe }}
-          </div>
-        {% endif %}
-        <div class="braintree-notifications"></div>
-        <div id="braintree-dropin"></div>
-        <input style="background-color: #0783ca" id="submit-button" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
-      </form>
+      {% if braintree_error %}
+        <div class="alert alert-danger fade in">
+            <button class="close" data-dismiss="alert">&times;</button>
+            {{ braintree_error|safe }}
+        </div>
+      {% endif %}
+      <div class="braintree-notifications"></div>
+      <div id="braintree-dropin"></div>
+      <input style="background-color: #0783ca" id="submit-button" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
+    </form>
       </div>
 
       <script>
@@ -45,4 +44,4 @@
             });
         });
     </script>
-{% endblock %}
+{% endblock content %}

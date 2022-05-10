@@ -12,7 +12,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-
+    
     class Meta:
         ordering = ('-created_at', )
         verbose_name = 'Заказ'
