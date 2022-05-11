@@ -1,8 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from shop.forms import CommentForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from .helpers import barber_list_filter_sort
@@ -52,26 +50,14 @@ def get_barbers_list(request, category_slug=None):
 
 
 
-list = []
+
 @login_required()
 def entries_time(request):
     if request.method == "POST":
         form = EntriesForm(data=request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            data = form.cleaned_data
-            list.append(data['date'])
-            print(list)
-                # raise ValidationError('Это время уже занято')
             obj.user = request.user
             obj.save()
     form = EntriesForm()
     return render(request, 'entries.html', {'form': form})
-
-
-
-
-# print(form.cleaned_data)
-
-
-

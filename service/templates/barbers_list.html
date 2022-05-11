@@ -33,35 +33,7 @@ Barbers:
             {% endfor %}
         </article>
 
-        <div style="margin-left: 40px; margin-top: 30px;">
-            {% with comments.count as total_comments %}
-            <h2>
-                {{ total_comments }} comment {{ total_comments|pluralize }}
-            </h2>
-            {% endwith %}
-            {% for comment in comments %}
-                <div class="comment">
-                    <p class="info">
-                        Comment {{ forloop.counter }} by {{ comment.name }}
-                        {{ comment.created }}
-                    </p>
-                    {{ comment.body|linebreaks }}
-                </div>
-            {% empty %}
-                <p>There are no comments yet.</p>
-            {% endfor %}
-            {% if new_comment %}
-                    <h2>Your comment has been added.</h2>
-            {% else %}
-                <h1>Add a new comment</h1>
-                <form action="." method="post">
-                    {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    <p><input type="submit" value="Add comment"></p>
-                </form>
-            {% endif %}
-        </div>
-
+       
         {% if barbers %}
 			<div class="pagination">
 			<span class="step-links">

@@ -14,7 +14,6 @@
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
 	<p style=" color: white" >Likes: {{likes}}</p>
-	<p style=" color: white" >Dislikes: {{dislikes}}</p>
 	<nav aria-label="likes" style="margin-left: 50px"> 
 		<form action="{% url 'product_like_url' product.id %}" method="POST" >
 		  {% if request.user.is_authenticated %}
@@ -23,16 +22,8 @@
 				class="btn btn-outline-primary btn-sm">Like</button>
 	
 		</form>
-		<form action="{% url 'product_dislike_url' product.id %}" method="POST" >
-			{% csrf_token %}
-			  <button style=" color: black; font-size: 15px;" type="submit" name="product_id" value="{{ product.id }}"
-				  class="btn btn-outline-primary btn-sm">Dislike</button>
-			{% endif %}
-	  
-			  
-		  </form>
 	  </nav>
-
+	  {% endif %}
 
     
     {% if request.user.is_authenticated %}
