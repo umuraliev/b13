@@ -74,7 +74,7 @@ def checkout_page(request):
 @login_required
 def payment(request):
     pay_id = 1
-    session = request.session
+    session = request.session.get('cart')
     cart = session.get(str(pay_id))
     price = cart.get('price')
     quantity = cart.get('quantity')

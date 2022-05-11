@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'oauth_app',
     'shop',
     'cart',
     'order',
@@ -158,7 +157,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
 # redirect
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/account/login/'
 LOGOUT_REDIRECT_URL = '/'
 
 
