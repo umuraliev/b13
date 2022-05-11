@@ -180,3 +180,6 @@ else:
 BRAINTREE_MERCHANT_ID = "khpt9njqd3ttmh2k"
 BRAINTREE_PUBLIC_KEY = "nvbzkbp9hqsx8fww"
 BRAINTREE_PRIVATE_KEY = "d65a384dc4092bd69d777ccbc65c458c"
+
+
+SITE_ID = 2
