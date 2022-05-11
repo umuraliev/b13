@@ -5,7 +5,7 @@ from .models import Product, Comment
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        exclude = ('created_at', 'updated_at', 'slug')
+        exclude = ('created_at', 'updated_at', 'slug', 'available', )
 
     def clean(self):
         slug = self.cleaned_data.get('name').lower().replace(" ", '-')
