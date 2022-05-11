@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import sys
 from pathlib import Path
 from decouple import config
 
@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
-    'service',
-    'cart',
+    'django.contrib.sites',
     'shop',
+    'cart',
+    'order',
+    'myaccount',
+    'service',
+    'social_django',
 
 ]
 
@@ -53,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+
+    'social_django.middleware.SocialAuthExceptionMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -70,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -130,11 +137,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static/'
-]
+STATICFILES_DIRS = [BASE_DIR / 'static/']
+
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [
-    BASE_DIR / 'media/'
-]
+MEDIA_ROOT = BASE_DIR / 'media/'
+
+PAGINATOR_NUM=2
+CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'myaccount.MyUser'
+
+# send email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+
+# redirect
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'social_core.backends.google.GoogleOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
+
+    BRAINTREE_PRODUCTION = False
+
+else:
+    BRAINTREE_PRODUCTION = True
+
+BRAINTREE_MERCHANT_ID = "khpt9njqd3ttmh2k"
+BRAINTREE_PUBLIC_KEY = "nvbzkbp9hqsx8fww"
+BRAINTREE_PRIVATE_KEY = "d65a384dc4092bd69d777ccbc65c458c"

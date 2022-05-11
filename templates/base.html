@@ -13,6 +13,10 @@
 		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
 	</head>
 	<body class="is-preload">
 
@@ -22,32 +26,74 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="{% url 'cart_detail' %}">
-							<i class="fa-solid fa-cart-shopping"></i>
-						</a>
-						<h1><a href="index.html">Solid State</a></h1>
-						<nav>
+						
+							{% if request.user.is_staff %}
+								<a href="{% url 'add_product' %}">
+								<center><i class="fa-solid fa-dragon"></i></center>
+								</a>
+       						 {% endif %}
+       					 	{% if request.user.is_authenticated %}
+							  <div style="display: flex;"><a href="{% url 'cart_detail' %}">
+							  <i class="fa-solid fa-cart-shopping"></i>
+							  <div style="margin-right:auto; margin-left: 20px;"><a href="/account/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></div>
+							</a></div>
+						  	{% endif %}
+							<h1><a href="index.html"></a></h1>
+						
+						<nav style="display:flex">
+							<form class="d-flex" action="{% url 'search' %}">
+								<input class="form-control me-2" style="background-color:rgba(255, 255, 255, 0)" name="search" type="search" placeholder="Что ищете?" aria-label="Search">
+								<button class="btn btn-outline-primary" type="submit">Search</button>
+							</form>
 							<a href="#menu">Menu</a>
 						</nav>
 					</header>
 				<!-- Menu -->
+				
 					<nav id="menu">
-						<div class="inner">
-							<h2>Menu</h2>
+						<div style="background-color:rgba(255, 255, 255, 0.1);" class="inner">
+
+							<h2 >Menu</h2>
 							<ul class="links">
 								<li><a href="/">Главная</a></li>
-								<li><a href="/service">Услуги</a></li>
-								<li><a href="/shop">Магазин</a></li>
-								<li><a href="#">Вход</a></li>
-								<li><a href="#">Регистрация</a></li>
+								<li><a href="{% url 'services_list' %}">Услуги</a></li>
+								<li><a href="{% url 'products_list' %}">Магазин</a></li>
+								{% if request.user.is_authenticated != True %}
+								<li><a href="{% url 'login' %}">Вход</a></li>
+								{% endif %}
+								{% if request.user.is_authenticated %}
+								<li><a href="{% url 'password_change' %}">Сменить пароль</a></li>
+								{% endif %}
+								<li><a href="{% url 'sign_up' %}">Регистрация</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
+						
                     </nav>
-    <div id="content">
+
+
     {% block content %}
         Empty Content
     {% endblock content %}
+	{% if products %}
+	<nav aria-label="Page navigation example" style="margin-left: 175px">
+		<ul class="pagination">
+	
+			{% if products.has_previous %}
+				<a style=" color: black; border-radius: 5px; font-size: 25px;" class="page-item" href="?page=1">&laquo; first</a>
+				<a style=" color: black; border-radius: 5px; font-size: 25px;" class="page-item" href="?page={{ products.previous_page_number }}">previous</a>
+			{% endif %}
+			<span class="current">
+				{{ products.number }}/{{ products.paginator.num_pages }}.
+			</span>
+	
+			{% if products.has_next %}
+				<a style=" color: black; border-radius: 5px; font-size: 25px;" class="page-item" href="?page={{ products.next_page_number }}">next</a>
+				<a style=" color: black; border-radius: 5px; font-size: 25px;" class="page-item" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+			{% endif %}
+		</ul>
+	</nav>
+	{% endif %}
         </div>
 
 
@@ -58,6 +104,29 @@
         <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
         <script src="{% static 'assets/js/util.js' %}"></script>
         <script src="{% static 'assets/js/main.js' %}"></script>
+		
+
+
+
+		{% if products %}
+			<div class="pagination">
+			<span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a class="w3-left w3-btn" href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+            <a class="w3-right w3-btn" href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+		</span>
+		</div>
+		{% endif %}
 
     </body>
 </html>

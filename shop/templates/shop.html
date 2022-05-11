@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+
 <section id="wrapper">
 	<header>
 		<div class="inner">
@@ -23,38 +24,47 @@
 				<p>Советы от Men's Club 13:<br></br>
                     Косметика для волос в первую очередь различается по степени блеска и уровню фиксации.<br></br>
                     Грамотная консультация наших барберов поможет определиться с выбором средства, которое подойдет именно вашему типу волос.</p>
-
+					
 				<h3 class="major">Каталог Товаров</h3>
 				<p>Men's Club 13 – не просто сервис, признанный во всем мире.<br></br>
                     О наличии и стоимости товаров уточняйте в ближайшем филиале сети барбершопов Men's Club 13.</p>
 
 				<section class="features">
-					<article>
-						<a href="#" class="image"><img src="{% static 'images/cosmetic1.jpeg' %}" alt="" /></a>
-						<h3 class="major">LOCK STOCK and BARREL FREESTYL (100 мл.)</h3>
-						<p>Lock Stock & Barrel Freestyl — Гель-конструктор для стильных укладок.
-                            Рекомендуется для всех типов волос, для творческого беспорядка на коротких волосах, для создания идеальной укладки по форме головы, для «зализанных» укладок, для стрижки «андеркат» (снизу и с боков волосы сбриты, а сверху длина), для идеального создания прически узел или хвост, для профессиональных танцоров, идеально зализанные и зафиксированные волосы. Единственный в мире гель без эффекта мокрых волос, не блестит, дает эффект матовости. Легко счесывается расческой, не оставляет на волосах никаких следов.
-                            Выдавите небольшое количество геля на руку и распределите на сухие волосы руками или расческой, придавая желаемую форму.</p>
-						<a href="#" class="special">Купить</a>
+					<div id="sidebar">
+						<div style="margin-left: -80px">
+						<a href="{% url 'products_list' %}?-price=sort">
+						  <button class="btn btn-outline-primary">Сначала дорогие</button>
+						</a>
+						<a href="{% url 'products_list' %}?price=sort">
+						  <button class="btn btn-outline-primary">Сначала дешевые</button>
+						</a>
+						<ul style="margin-top: 10px;">
+						  <li {% if not category %}class="selected"{% endif %}>
+							<a href="{% url 'products_list' %}">Все товары</a>
+						  </li>
+							{% for cat in categories %}
+								<li {% if category.slug == cat.slug %}class="selected"{% endif %}>
+								<a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+								</li>
+							{% endfor %}
+							</div>
+					<center>
+						<article>
+						{% for product in products %}
+						<div>
+						<a href="{{ product.get_absolute_url }}" class="image">
+
+							<img src="{{product.image.url}}" alt="" /></a>
+
+						<h3 class="major">{{product.name}}</h3>
+						<h3 class="major">{{product.price}} $</h3>
+						<p> {{product.description}}</p>
+						<a href="{{ product.get_absolute_url }}" class="special" style="margin-bottom: 70px">Купить</a>
+						</div>
+						{% endfor %}
+
 					</article>
-					<article>
-						<a href="#" class="image"><img src="{% static 'images/cosmetic2.jpg' %}" alt="" /></a>
-						<h3 class="major">LOCK STOCK & BARREL DISORDER ULTRA MATTE CLAY (100 гр.)</h3>
-						<p>Lock Stock & Barrel Disorder Ultra Matte Clay — Ультра- матовая глина для скульптурирования.
-                            Дает грубую растрепанную текстуру, эффект волос Маугли и Тарзана в одном лице – диковатые и неухоженные, матовость и сильная степень фиксации.
-                            Бесценный кусок чистейшей ГРЯЗИ, который создаст на голове адский беспорядок. Для всех, кому близок стиль живущего под мостом бродяги, диковатого Маугли и свободного от социальных предрассудков хипаря. Стайлинг содержит горную породу диатомит и глинистый минерал бентонит, дающие мега-матовость и фиксацию. Кварц и пемза в составе отвечают за сцепление волос и текстурность.</p>
-						<a href="#" class="special">Купить</a>
-					</article>
-                    <article>
-						<a href="#" class="image"><img src="{% static 'images/cosmetic3.jpg' %}" alt="" /></a>
-						<h3 class="major">REUZEL EXTREME HOLD MATTE POMADE (35 / 113 гр.)</h3>
-						<p>Reuzel Extreme Hold Matte Pomade (Нидерланды,США) — паста для укладки волос от легендарного нидерландского барбершопа Schorem.
-                            Средство для укладки суперсильной фиксации, матирует волосы, отлично подойдет для современных текстурированных укладок.
-                            Прекрасно распределяется по волосам, отлично сохраняет объем и позволяет поправлять укладку в течении дня.
-                            Без усилий смывается водой.
-                            Обладает приятным фруктовым ароматом с нотками ананаса.</p>
-						<a href="#" class="special">Купить</a>
-					</article>
+				</center>
 				</section>
 
 			</div>
@@ -62,3 +72,5 @@
 
 </section>
 {%endblock%}
+
+

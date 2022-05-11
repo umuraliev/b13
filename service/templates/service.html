@@ -27,25 +27,20 @@
 				<h3 class="major">Стрижка усов и бороды, оформление</h3>
 				<p>Борода и усы для мужчины важная особенность издревле. И если вы думаете, что «отпустить бороду» или «отрастить усы» — значит просто дать волосам на лице расти как они хотят, то вы сильно ошибаетесь. За ними нужен особый уход как ежедневный, так и профессиональный.</p>
 
-				<section class="features">
-					<article>
-						<a href="#" class="image"><img src="{% static 'images/haircut.jpg' %}" alt="" /></a>
-						<h3 class="major">МУЖСКИЕ
-							СТРИЖКИ</h3>
-						<p>Выбрать барбера и записаться на стрижку</p>
-						<a href="#" class="special">Записаться</a>
-					</article>
-					<article>
-						<a href="#" class="image"><img src="{% static 'images/beardcut.jpg' %}" alt="" /></a>
-						<h3 class="major">СТРИЖКА УСОВ
-							И БОРОДЫ</h3>
-						<p>Выбрать барбера и записаться на стрижку усов и бороды</p>
-						<a href="#" class="special">Записаться</a>
-					</article>
-				</section>
+							<div style="display:flex;flex-wrap:wrap;align-content: center;justify-content: space-between;width: 80vw;">
+							{% for cat in categories %}
+							<div style="margin-top: 30px; ">
+								<img src="{{ cat.image_url}}" alt="" style="weight: 250px; height: 250px;"/>
+								<h3 class="major">{{cat.title}}</h3>
+								<p> {{cat.description}}</p>
+								<a href="{% url 'barber_list_by_category' cat.slug  %}"><button type="submit" name="Submit" class="btn btn-secondary">Выбрать</button></a>
+							</div>
+							{% endfor %}
+							</div>
 
 			</div>
 		</div>
 
 </section>
 {%endblock%}
+
