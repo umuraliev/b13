@@ -51,7 +51,6 @@ class Barber(models.Model):
 
 class EntriesTime(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='entruser')
-    # barber = models.ForeignKey(Barber, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
 

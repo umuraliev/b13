@@ -52,17 +52,13 @@ def get_barbers_list(request, category_slug=None):
 
 
 
-list = []
+
 @login_required()
 def entries_time(request):
     if request.method == "POST":
         form = EntriesForm(data=request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            data = form.cleaned_data
-            list.append(data['date'])
-            print(list)
-                # raise ValidationError('Это время уже занято')
             obj.user = request.user
             obj.save()
     form = EntriesForm()
@@ -70,8 +66,6 @@ def entries_time(request):
 
 
 
-
-# print(form.cleaned_data)
 
 
 
