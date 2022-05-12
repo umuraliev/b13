@@ -114,7 +114,7 @@ def create_product(request):
 
 def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
-    return redirect('/')
+    return redirect('products_list')
 
   
 def update_product(request, product_slug):
